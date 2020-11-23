@@ -1,7 +1,6 @@
 import * as THREE from "three";
-// import fragment from "./shader/fragment.glsl";
-// import vertex from "./shader/vertex.glsl";
-let OrbitControls = require("three-orbit-controls")(THREE);
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import * as dat from "dat.gui";
 
 export default class Sketch {
   constructor(options) {
@@ -38,16 +37,16 @@ export default class Sketch {
     this.resize();
     this.render();
     this.setupResize();
-    // this.settings();
+    this.settings();
   }
 
   settings() {
-    // let that = this;
-    // this.settings = {
-    //   progress: 0,
-    // };
-    // this.gui = new dat.GUI();
-    // this.gui.add(this.settings, "progress", 0, 1, 0.01);
+    let that = this;
+    this.settings = {
+      progress: 0
+    };
+    this.gui = new dat.GUI();
+    this.gui.add(this.settings, "progress", 0, 1, 0.01);
   }
 
   setupResize() {
@@ -63,15 +62,15 @@ export default class Sketch {
   }
 
   addObjects() {
-    // let that = this;
+    let that = this;
     this.material = new THREE.ShaderMaterial({
       extensions: {
         derivatives: "#extension GL_OES_standard_derivatives : enable"
       },
       side: THREE.DoubleSide,
       uniforms: {
-        time: { type: "f", value: 0 },
-        resolution: { type: "v4", value: new THREE.Vector4() },
+        time: { value: 0 },
+        resolution: { value: new THREE.Vector4() },
         uvRate1: {
           value: new THREE.Vector2(1, 1)
         }
